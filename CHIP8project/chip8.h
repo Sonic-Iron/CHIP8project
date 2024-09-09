@@ -6,7 +6,7 @@ private:
 	//CPU 
 	std::array<uint8_t, 16> VR;
 	uint16_t I, PC;
-	uint8_t sp;
+	uint8_t SP;
 	std::array<uint16_t, 16> stack;
 	uint8_t delay_timer, sound_timer;
 
@@ -16,6 +16,7 @@ private:
 	//DISPLAY
 
 	std::array<bool, 64 * 32> display;
+	int V_WIDTH;
 
 	//PERIPHERALS
 

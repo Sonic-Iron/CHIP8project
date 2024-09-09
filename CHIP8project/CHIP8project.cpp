@@ -4,7 +4,11 @@
 #include <iostream>
 #include<chip8.h>
 
-chip8
+chip8::chip8()
+{
+
+}
+
 	std::array<unsigned char, 80> chip8_fontset = {
                     0xF0, 0x90, 0x90, 0x90, 0xF0, // 0
                     0x20, 0x60, 0x20, 0x20, 0x70, // 1

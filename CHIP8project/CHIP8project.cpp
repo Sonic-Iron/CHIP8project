@@ -2,11 +2,13 @@
 //
 
 #include <iostream>
+#include <string>
+#include <fstream>
 #include "chip8.h"
 
 chip8::chip8()
 {
-    std::array<unsigned char, 80> chip8_fontset =
+    std::array<uint8_t, 80> chip8_fontset =
     {
     0xF0, 0x90, 0x90, 0x90, 0xF0, // 0
     0x20, 0x60, 0x20, 0x20, 0x70, // 1
@@ -35,7 +37,7 @@ chip8::chip8()
     V_WIDTH = 64;
 
     //reset registers
-    VR = {};
+    ViRe = {};
     stack = {};
     memory = {};
     display = {};
@@ -44,8 +46,35 @@ chip8::chip8()
 
     //copy fontset into memory
     std::copy(std::begin(chip8_fontset), std::end(chip8_fontset), std::begin(memory));
+} 
 
+bool chip8::get_draw_flag()
+{
+    return draw_flag;
+}
 
+bool chip8::get_display_value(int display_location)
+{
+    return display[display_location];
+}
 
+void chip8::load_rom(const std::string* filename)
+{
+    std::ifstream file(filename, std::ios::binary | std::ios::ate);
 
-};
+    if (file.is_open())
+    {
+        const std::streampos size = file.tellg();
+        char* buffer = new char[size];
+
+        file.seekg(0, std::ios::beg);
+        file.read(buffer, size);
+        file.close();
+
+        for (long i = 0; i < size; ++i)
+        {
+            memory[PC + i] = buffer[i]
+        }
+
+    }
+}
